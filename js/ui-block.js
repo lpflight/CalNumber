@@ -134,8 +134,8 @@ var uiBlock = function () {
             //apiPrefix
 
             apiList = [
-                //{ chainId: 1, name: "Mainnet", url: "https://mainnet.nebulas.io" ,initAddress:"n1WzTLpUcLzykALp8gMTdJwty6LunFTtVXK",contractAddress:"n1kiNRDHVpS5CPoZe3eGvWSxPtN8twV19FL"},
-                { chainId: 1001, name: "Testnet", url: "https://testnet.nebulas.io",initAddress:"n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE",contractAddress:"n1kiNRDHVpS5CPoZe3eGvWSxPtN8twV19FL"},
+                { chainId: 1, name: "Mainnet", url: "https://mainnet.nebulas.io" ,initAddress:"n1WzTLpUcLzykALp8gMTdJwty6LunFTtVXK",contractAddress:"n1qbScgJCvrBh73moWpYN5fB1MREs6TCysM"},
+                //{ chainId: 1001, name: "Testnet", url: "https://testnet.nebulas.io",initAddress:"n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE",contractAddress:"n1kiNRDHVpS5CPoZe3eGvWSxPtN8twV19FL"},
                 //{ chainId: 100, name: "Local Nodes", url: "http://127.0.0.1:8685",initAddress:""},
                 //{ chainId: 100, name: "NASSCAN", url: "https://api.nasscan.io", initAddress:"n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE", contractAddress:"n1ujAF6ArsdFREzBcEBaVeZpdcj915kZB3p"}
             ];
