@@ -1,0 +1,626 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="icon shortcut" href=img/logo.png type=image/png>
+    <link rel=apple-touch-icon href=img/logo.png>
+    <link rel=stylesheet href=lib/bootstrap-4.0.0-dist/css/bootstrap.min.css>
+    <link rel=stylesheet href=lib/prismjs-1.13.0/prism.css>
+    <link rel=stylesheet href=css/base.css>
+    <link rel=stylesheet href=css/ui-block.css?x=1>
+    <link rel=stylesheet href=css/codemirror.css>
+    <meta name=viewport content="width=device-width">
+    <title>区块链计算器</title>
+</head>
+<body>
+    <div class=container>
+        <div id=content>
+            <!-- search contract -->
+            <div class="run_contract show tab" id=tab3>
+                <div class=title>
+                    <span></span>
+                </div>
+				<div style="width:1000px; height:5px;border:5px solid blue;"></div>
+                <div class="starter-template">
+                  <h1>区块链计算器</h1>
+                </div>
+
+                    <body>
+					<div style="width:1000px; height:5px;border:10px solid blue;"></div>
+                    <div id="demo" style="overflow:hidden;height:150px;color:#333">
+                        <div id="demo1">
+                          <table border="1" id="mydata">
+                          <tr>您可以用下面的计算器计算结果</tr>
+                          <tr>我们会自动存入计算结果到区块链中</tr>
+                          <tr>您每次登录都可以看到自己的计算结果，欢迎来玩！</tr>
+						  <tr></tr>
+                          </table>
+                        </div>
+                        <div id="demo2"></div>
+                    </div>
+					
+					
+                       <script>
+                       var speed=10
+                       demo2.innerHTML=demo1.innerHTML
+                       function Marquee(){
+					     //console.log("------Marquee--demo1-"+demo1.offsetHeight);
+						 //console.log("------Marquee-demo2--"+demo2.offsetHeight);
+						 
+                         if(demo1.offsetHeight>demo2.offsetHeight)
+                         demo2.innerHTML=demo1.innerHTML
+                         if(demo2.offsetHeight-demo.scrollTop<=0)
+                         {
+                           demo.scrollTop-=demo1.offsetHeight
+                         }
+                         else{
+                         demo.scrollTop++
+                        }
+                       }
+                       var MyMar=setInterval(Marquee,speed)
+                       demo.onmouseover=function() {clearInterval(MyMar)}
+                       demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+                       </script>
+                    </body>
+
+            </div>
+        </div>
+    </div>
+
+
+<!--css 样式-->
+<style>
+    input{
+        width:60px;
+    }
+    #inp1{
+        width:280px;
+        text-align:right;
+    }
+</style>
+
+<body>
+    <div class=container>
+	<div style="width:1000px; height:5px;border:10px solid blue;"></div>
+    <table border="1">
+        <!--显示结果行-->
+        <tr><td colspan="4"><input id="inp1" type="text" value="" name="xianshi"/></td></tr>
+        <!--第一行-->
+        <tr><td><input type="button" value="POWER" onclick="inputPCB(this)"/></td><td><input type="button" value="Clear" onclick="inputPCB(this)"/></td><td><input type="button" value="Back"onclick="inputPCB(this)"/></td><td></td></tr>
+        <!--第二行-->
+        <tr><td><input type="button" value="1" onclick="inputEvent(this)"/></td><td><input type="button" value="2" onclick="inputEvent(this)"/></td><td><input type="button"value="3" onclick="inputEvent(this)"/></td><td><input type="button" value="4" onclick="inputEvent(this)"/></td></tr>
+        <!--第三行-->
+        <tr><td><input type="button" value="5" onclick="inputEvent(this)"/></td><td><input type="button" value="6" onclick="inputEvent(this)"/></td><td><input type="button"value="7" onclick="inputEvent(this)"/></td><td><input type="button" value="8" onclick="inputEvent(this)"/></td></tr>    
+        <!--第四行-->
+        <tr><td><input type="button" value="9" onclick="inputEvent(this)"/></td><td><input type="button" value="0" onclick="inputEvent(this)"/></td><td><input type="button"value="." onclick="inputEvent(this)"/></td><td><input type="button" value="=" id="calculator_button" onclick="inputEquel(this)"/></td></tr>
+        <!--第五行-->
+        <tr><td><input type="button" value="+" onclick="inputOper(this)"/></td><td><input type="button" value="-" onclick="inputOper(this)"/></td><td><input type="button"value="*" onclick="inputOper(this)"/></td><td><input type="button" value="/" onclick="inputOper(this)"/></td></tr>    
+    </table>
+	</div>
+</body>
+
+    <div class="form-group row">
+                    <div class=col>
+                        <button class="btn btn-block next_show_button" id="clear_button">全部清除链上数据</button>
+                    </div>
+    </div>
+
+
+    <script src=lib/jquery-3.3.1.min.js></script>
+    <script src=lib/bootstrap-4.0.0-dist/js/bootstrap.bundle.min.js data-depends=jquery.slim></script>
+    <script src=lib/bootbox.min.js data-depends="bootstrap jquery.slim"></script>
+    <script src=lib/blockies.min.js></script>
+    <script src=lib/js-beautify-1.7.5/beautify.js></script>
+    <script src=lib/prismjs-1.13.0/prism.js></script>
+    <script src=lib/nebulas.js></script>
+    <script src=js/1-localSave.js></script>
+    <script src=js/home.v1.js></script>
+    <script src=js/i18n.js data-depends=jquery.slim></script>
+    <script src=js/ui-block.js?x=4 data-depends="bootbox blockies jquery.slim i18n.js nebulas.js"></script>
+    <script src=lib/codemirror/codemirror.js></script>
+    <script src=lib/codemirror/javascript.js></script>
+    <script src=js/canvasBarrage.js></script>
+    <script src="js/auto-text.js"></script>
+    <script src=lib/nebPay.js></script>
+
+    <script>
+	
+	/* 定义一个Calculator类*/
+    function Calculator(){
+        this.jisuan=function(num1,num2,oper){
+            var res=0;
+            switch(oper){
+                case "+":
+                    res=num1+num2;
+                    break;
+                case "-":
+                    res=num1-num2;
+                    break;
+                case "*":
+                    res=num1*num2;
+                    break;
+                case "/":
+                    res=num1/num2;
+                    break;
+            }
+            return res;
+        }
+    }
+    //创建对象
+    var calculator=new Calculator();
+    /*定义全局变量*/
+    var val=0; //放置输入的值
+    var xval=0;//保存转换Number类型的值
+    var temp=0; //保存第一次输入的值    
+    var oper="";//保存输入的操作符
+	var	numberResult = "";//计算结果
+    /*获取输入数字*/
+    function inputEvent(e){
+        val=e.value
+        var xsval=document.getElementById("inp1");        
+        xsval.value+=val; //连续输入数字(String类型)
+        //转换Number类型
+        xval=parseFloat(xsval.value);
+    }
+    /*获取第一行的数据*/
+    function inputPCB(e){
+        //window.alert(e.value);
+        var xsval=document.getElementById("inp1");
+        if(e.value=="Clear"){
+            xsval.value="";
+        }else if(e.value=="Back"){
+            /*这个功能还没有实现，有兴趣的朋友可以自己做一做*/
+        }else if(e.value=="POWER"){
+            //计算平方
+            xsval.value=Math.pow(xsval.value,2);            
+        }
+    }
+    /*输入操作符*/
+    function inputOper(e){
+        oper=e.value;
+        //window.alert(typeof oper);
+        //oper=oper.substr(0);
+        if (e.value=="+"){
+            var xsval=document.getElementById("inp1");
+            //保存上次计算结果，并对字符串进行转换Number类型
+            temp=parseFloat(xsval.value);
+            //第一次输入的值设置为空
+            xsval.value="";                        
+        }else if(e.value=="-"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }else if(e.value=="*"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }else if(e.value=="/"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }
+    }
+    /*计算结果*/
+    function inputEquel(e){
+        var xsval=document.getElementById("inp1");  
+        	
+        if(e.value=="="){
+            //window.alert(xval);
+            //调用对象方法
+            xsval.value=calculator.jisuan(temp,xval,oper);
+			numberResult = xsval.value;
+			console.log("---------xsval.value="+xsval.value);
+			console.log("---------numberResult="+numberResult);
+			return numberResult;
+        }
+    }
+	
+        "use strict";
+        //Define CalNumbers
+        var CalNumbers
+        var nebulas = require("nebulas"),
+            Account = nebulas.Account,
+            Utils = nebulas.Utils,
+            neb = new nebulas.Neb(),
+            globalParams = {
+                account: null
+            },
+            validateTab2 = uiBlock.validate("#tab2"),
+            validateTab3 = uiBlock.validate("#tab3");
+
+        var WALL_ADDRESS = "n1n2W9q8X7nSBjoomVpQ55A7oTk2MQsRCRE";//"n1kiNRDHVpS5CPoZe3eGvWSxPtN8twV19FL";//contract address
+
+        neb.setRequest(new nebulas.HttpRequest(localSave.getItem("apiPrefix") || "https://testnet.nebulas.io"));
+
+        uiBlock.insert({
+            footer: ".footer",
+            header: ".header",
+            iconAddress: ".icon-address",
+            logoMain: ".logo-main",
+            numberComma: ".number-comma",
+            selectWalletFile: [".select-wallet-file", onUnlockFile]
+        });
+
+
+
+        // prompt（function，args）
+        $("#prompt").mouseover(function(){
+            $("#prompt_contenner").removeClass("active1");
+        });
+
+        $("#prompt").mouseout(function(){
+            $("#prompt_contenner").addClass("active1");
+        });
+
+        $("#call_prompt").mouseover(function(){
+            $("#call_prompt_contenner").removeClass("active1");
+        });
+
+        $("#call_prompt").mouseout(function(){
+            $("#call_prompt_contenner").addClass("active1");
+        });
+
+         $("#function_prompt").mouseover(function(){
+            $("#function_prompt_contenner").removeClass("active1");
+        });
+
+        $("#function_prompt").mouseout(function(){
+            $("#function_prompt_contenner").addClass("active1");
+        });
+
+        function activeSubmit() {
+            $("#call").attr("disabled", false);
+        }
+
+
+
+        // 获取弹幕信息
+        function getAutoText() {
+            innerCall(function (params) {
+                neb.api
+                    .call({
+                        from: params.from,
+                        to: params.to,
+                        value: params.value,
+                        nonce: params.nonce,
+                        gasPrice: params.gasPrice,
+                        gasLimit: params.gasLimit,
+                        contract: params.contract
+                    })
+                    .then(function (resp) {
+                        showData(resp);
+                    })
+                    .catch(function (err) {
+                        $("#call_test_result").text(JSON.stringify(err));
+                        $("#call").attr("disabled", true);
+                        $("#call_result").text("");
+                        $(".next").removeClass("active1");
+                    });
+            });
+        }
+
+        
+        // 解锁钱包文件
+        function onUnlockFile(swf, fileJson, account, password) {
+            var balance_nas, state,
+                fromAddr = account.getAddressString(),
+                $tab = $(swf).closest(".tab");
+
+            $(".modal.loading").modal("show");
+
+            if ($tab.prop("id") == "tab2") {
+                $("#from_addr").val(fromAddr).trigger("input");
+                $("#to_addr").val(account.getAddressString()).trigger("input");
+            } else if ($tab.prop("id") == "tab3")
+                $("#run_from_addr").val(fromAddr).trigger("input");
+
+            try {
+                account.fromKey(fileJson, password);
+                globalParams.account = account;
+                $("#unlock").hide();
+                $("#send").show();
+
+                neb.api.gasPrice()
+                    .then(function (resp) {
+                        $("#gas_price").val(resp.gas_price);
+                        $("#run_gas_price").val(resp.gas_price);
+
+                        return neb.api.getAccountState(fromAddr);
+                    })
+                    .then(function (resp) {
+                        var balance = nebulas.Unit.fromBasic(resp.balance, "nas");
+
+                        if ($tab.prop("id") == "tab2")
+                            $("#balance").val(balance + " NAS");
+                        else if ($tab.prop("id") == "tab3")
+                            $("#run_balance").val(balance + " NAS");
+
+                        $(".modal.loading").modal("hide");
+                        activeSubmit();
+                    })
+                    .catch(function (e) {
+                        // this catches e thrown by nebulas.js!neb
+
+                        bootbox.dialog({
+                            backdrop: true,
+                            onEscape: true,
+                            message: i18n.apiErrorToText(e.message),
+                            size: "large",
+                            title: "Error"
+                        });
+
+                        $(".modal.loading").modal("hide");
+                    });
+            } catch (e) {
+                // this catches e thrown by nebulas.js!account
+
+                bootbox.dialog({
+                    backdrop: true,
+                    onEscape: true,
+                    message: localSave.getItem("lang") == "en" ? e : "keystore 文件错误, 或者密码错误",
+                    size: "large",
+                    title: "Error"
+                });
+
+                $(".modal.loading").modal("hide");
+            }
+        }
+
+
+
+        function innerCall(callback, func) {
+            let params = {};
+
+            //设置一个默认地址
+            params.from  = localSave.getItem("initAddress");
+
+            // 合约地址
+            let toAddr = WALL_ADDRESS;
+
+            params.to = toAddr;
+
+
+            // prepare gasLimit
+            let gasLimit = Utils.toBigNumber(0);
+            console.log("innerCall gasLimit" + gasLimit);
+            try {
+                gasLimit = Utils.toBigNumber("200000");
+            } catch (err) {
+                console.log(err);
+            }
+            console.log("innerCall gasLimit" + gasLimit);
+            if (gasLimit.cmp(Utils.toBigNumber(0)) <= 0) {
+                $("#run_gas_limit").addClass("err");
+                setTimeout(function () {
+                    $("#run_gas_limit").removeClass("err");
+                }, 5000);
+                return;
+            }
+            params.gasLimit = gasLimit.toNumber();
+
+            // prepare gasPrice
+            let gasPrice = Utils.toBigNumber(0);
+            try {
+                gasPrice = Utils.toBigNumber("1000000");
+            } catch (err) {
+                console.log(err);
+            }
+            if (gasPrice.cmp(Utils.toBigNumber(0)) <= 0) {
+                $("#run_gas_price").addClass("err");
+                setTimeout(function () {
+                    $("#run_gas_price").removeClass("err");
+                }, 5000);
+                return;
+            }
+            params.gasPrice = gasPrice.toNumber();
+
+            // prepare value
+            let value = Utils.toBigNumber(0);
+            try {
+//                value = nebulas.Unit.toBasic(Utils.toBigNumber($("#run_value").val()), "nas");
+                value = nebulas.Unit.toBasic(Utils.toBigNumber(0), "nas");
+            } catch (err) {
+                console.log(err);
+            }
+            if (value.cmp(Utils.toBigNumber(0)) < 0) {
+                // TODO 添加提示value输入不对
+                console.log("invalid value");
+                return;
+            }
+            params.value = value;
+            params.contract = {
+                "function": func || "list",
+                "args": ""
+            };
+
+            // prepare nonce
+            neb.api.getAccountState(params.from).then(function (resp) {
+                //获取nonce的值+1
+                params.nonce = parseInt(resp.nonce) + 1;
+                //回调方法
+                callback(params);
+            }).catch(function (err) {
+                bootbox.dialog({
+                    backdrop: true,
+                    onEscape: true,
+                    message: i18n.apiErrorToText(err.message),
+                    size: "large",
+                    title: "Error"
+                });
+            });
+        }
+
+        
+
+        // next area show
+        $(document).ready(function() {
+            getAutoText();
+
+            //$("#next_show_button").bind("click", function() {
+			$("#clear_button").bind("click", function() {
+			    console.log("-------clear_button------delFlag"+delFlag);
+				delFlag = true;
+				var arr = [];
+                arr.push("");
+                arr.push(new Date());
+				valueAdd = "del";
+                AddDataToBL(WALL_ADDRESS,0,"del",JSON.stringify(arr))
+			
+							
+			});
+            $("#calculator_button").bind("click", function() {
+			
+			    console.log("---------------calculator_buttonCalNumbers done numberResult"+numberResult);
+                //var content = $("#wall_content").val().trim();
+
+                CalNumbers = numberResult;//changeNumMoneyToChinese(content);
+                console.log("CalNumbers="+CalNumbers)
+                //AddDataToListById('mydata',CalNumbers)
+                console.log("CalNumbers done")
+
+				
+				console.log("--------------");
+                var arr = [];
+                arr.push(CalNumbers);
+                arr.push(new Date());
+				valueAdd = "save";
+                AddDataToBL(WALL_ADDRESS,0,"save",JSON.stringify(arr))
+				
+                ///
+                
+            });
+        });
+
+        function AddData(data) {
+		  console.log("-------AddData---################creat TR###########");
+          var row = document.createElement('tr'); //创建行
+          //var row = document.createElement('h1'); //创建行
+          //var idCell = document.createElement('h1'); //创建第一列id
+          row.innerHTML = data; //填充数据
+          //row.appendChild(idCell); //加入行  ，下面类似
+          return row; //返回tr数据
+        }
+
+        function AddDataToListById(id,data) {
+          var tbody = document.getElementById(id);
+          console.log("content="+content)
+          var trow = AddData(data)
+          tbody.appendChild(trow);
+		  
+		  console.log("-------id--rowNum---"+id);
+		  
+		  
+          var rowNum=tbody.rows.length;
+		  console.log("-------AddDataToListById--rowNum---"+rowNum);
+        }
+
+        	
+		//var resList = "";
+
+        function showData(data) {
+            var res = data.result;
+			//resList = data.result;
+            var number = 10;
+            if (res) {
+                var arr = [];
+                res = JSON.parse(res);
+                if (res.length > number) {
+                    res = res.slice(res.length - number, res.length);
+                }
+
+                for (var key in res) {
+                    var obj = res[key];
+                    arr.push(obj.words);
+					console.log("response of push wwwwwwwwwwwww: " +obj.words);
+                    AddDataToListById('mydata',obj.words)
+                }
+				
+				
+            }
+        }
+		
+		var delFlag = false;
+		
+		function clearAllData() {
+		    var table = document.getElementById("mydata"),
+                trs = table.getElementsByTagName("tr");
+		        console.log("--******************-----deleteRow-length--"+trs.length);
+		        for(var i = trs.length-1; i >= 0; i--) {
+		            console.log("--******************-----deleteRow---"+i);
+                    table.deleteRow(i);
+                }
+			
+			delFlag = false;
+			clearInterval(intervalQuery);
+		}
+
+        var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
+        var nebPay = new NebPay();
+        var serialNumber;
+		var valueAdd;
+
+        function AddDataToBL(to,value,callFunction,callArgs) {
+            //defaultValue
+            /*
+            var to = dappAddress;
+            var value = "0";
+            var callFunction = "save"
+            var callArgs = "[\"" + $("#search_value").val() + "\",\"" + $("#add_value").val() + "\"]"
+            */
+            serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+                listener: cbPush        //设置listener, 处理交易返回信息
+            });
+			
+			//valueAdd = value;
+			console.log("valueAdd------******-------: " + valueAdd);
+
+            intervalQuery = setInterval(function () {
+			    console.log("============intervalQuery!!!!!!!!!!");
+                funcIntervalQuery();
+            }, 5000);
+        }
+
+        var intervalQuery
+	
+
+        function funcIntervalQuery() {
+            nebPay.queryPayInfo(serialNumber)   //search transaction result from server (result upload to server by app)
+                .then(function (resp) {
+                    console.log("tx result: " + resp)   //resp is a JSON string
+                    var respObject = JSON.parse(resp)
+                    if(respObject.code === 0){
+                        alert(`set ${$("#search_value").val()} succeed!`);
+						
+						console.log("valueAdd-------------: " + valueAdd);
+						if(valueAdd == "save") {
+						    console.log("valueAdd----------CalNumbers---: " + CalNumbers);
+						    AddDataToListById('mydata',CalNumbers);
+							valueAdd = "";
+						}
+						
+						if(delFlag) {
+						    clearAllData();
+						}						
+                        clearInterval(intervalQuery);
+						//window.location.reload();
+						console.log("response of pus reload!!!!!!!!!!!!!!");
+						//setTimeout(function() {
+						 //   console.log("getAutoText!!!!!!!!!!!!!!");
+                         //   getAutoText();
+                       // }, 25000);
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+
+        function cbPush(resp) {
+            console.log("response of push: " + JSON.stringify(resp))
+        }
+    </script>
+</body>
+</html>
